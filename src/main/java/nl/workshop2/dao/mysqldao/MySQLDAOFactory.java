@@ -1,12 +1,13 @@
 package nl.workshop2.dao.mysqldao;
 
-import nl.workshop2.dao.AccountDAO;
-import nl.workshop2.dao.AdresDAO;
-import nl.workshop2.dao.ArtikelDAO;
-import nl.workshop2.dao.BestellingDAO;
-import nl.workshop2.dao.BestelregelDAO;
 import nl.workshop2.dao.DAOFactory;
-import nl.workshop2.dao.KlantDAO;
+import nl.workshop2.dao.GenericDao;
+import nl.workshop2.domain.Account;
+import nl.workshop2.domain.Adres;
+import nl.workshop2.domain.Artikel;
+import nl.workshop2.domain.Bestelling;
+import nl.workshop2.domain.Bestelregel;
+import nl.workshop2.domain.Klant;
 
 /**
  *
@@ -19,32 +20,32 @@ public class MySQLDAOFactory extends DAOFactory {
     */
     
     @Override
-    public AccountDAO getAccountDAO() {
-        return new MySQLAccountDAO();
+    public GenericDao<Account> getAccountDao() {
+        return new AccountDaoImpl();
     }
     
     @Override
-    public AdresDAO getAdresDAO() {
-        return new MySQLAdresDAO();
+    public GenericDao<Adres> getAdresDao() {
+        return new AdresDaoImpl();
     }
     
     @Override
-    public ArtikelDAO getArtikelDAO() {
-        return new MySQLArtikelDAO();
+    public GenericDao<Artikel> getArtikelDao() {
+        return new ArtikelDaoImpl();
     }
     
     @Override
-    public BestellingDAO getBestellingDAO() {
-        return new MySQLBestellingDAO();
+    public GenericDao<Bestelling> getBestellingDao() {
+        return new BestellingDaoImpl();
     }
     
     @Override
-    public BestelregelDAO getBestelregelDAO() {
-        return new MySQLBestelregelDAO();
+    public GenericDao<Bestelregel> getBestelregelDao() {
+        return new BestelregelDaoImpl();
     }
     
     @Override
-    public KlantDAO getKlantDAO() {
-        return new MySQLKlantDAO();
+    public GenericDao<Klant> getKlantDao() {
+        return new KlantDaoImpl();
     }
 }
