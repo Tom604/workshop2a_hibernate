@@ -84,7 +84,7 @@ public class ArtikelMenuView extends MenuView {
         Artikel artikel = new Artikel();
         
         System.out.println("Selecteer artikel.\n");
-        int selection = Integer.parseInt(getSelection());
+        Long selection = Long.parseLong(getSelection());
         if (selection == 0) {
         }
         else if (selection < 0 || selection > id) {
@@ -157,7 +157,7 @@ public class ArtikelMenuView extends MenuView {
     private void showDeleteArtikelMenu() {
         
         Artikel artikel = showSelectArtikelMenu();
-        int id = artikel.getId();
+        Long id = artikel.getId();
         
         setViewName("Artikel verwijderen");
         printHeader();

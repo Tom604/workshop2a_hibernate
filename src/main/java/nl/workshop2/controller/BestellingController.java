@@ -1,8 +1,9 @@
 package nl.workshop2.controller;
 
 import java.util.ArrayList;
-import nl.workshop2.dao.BestellingDAO;
 import nl.workshop2.dao.DAOFactory;
+import nl.workshop2.dao.GenericDao;
+import nl.workshop2.dao.mysqldao.BestellingDaoImpl;
 import nl.workshop2.domain.Bestelling;
 
 /**
@@ -11,33 +12,31 @@ import nl.workshop2.domain.Bestelling;
  */
 public class BestellingController {
     
+	private final GenericDao<Bestelling> BESTELLINGDAO = DAOFactory.getDAOFactory().getBestellingDao();
+	
     public Bestelling insertBestelling(Bestelling bestelling) {
-        BestellingDAO bestellingDAO = DAOFactory.getDAOFactory().getBestellingDAO();
-        return bestellingDAO.insertBestelling(bestelling);
+        BestellingDaoImpl bestellingDaoImpl = new BestellingDaoImpl(); 
+        return bestellingDaoImpl.insert(bestelling);
     }
     
-    public Bestelling selectBestelling(int id) {
-        BestellingDAO bestellingDAO = DAOFactory.getDAOFactory().getBestellingDAO();
-        return bestellingDAO.selectBestelling(id);
+    public Bestelling selectBestelling(Long id) {
+        return BESTELLINGDAO.select(id);
     }
     
     public ArrayList<Bestelling> selectBestellingen() {
-        BestellingDAO bestellingDAO = DAOFactory.getDAOFactory().getBestellingDAO();
-        return bestellingDAO.selectBestellingen();
+        return BESTELLINGDAO.selectMultiple();
     }
     
-    public ArrayList<Bestelling> selectBestellingen(int klantId) {
-        BestellingDAO bestellingDAO = DAOFactory.getDAOFactory().getBestellingDAO();
-        return bestellingDAO.selectBestellingen(klantId);
+    public ArrayList<Bestelling> selectBestellingen(Long klantId) {
+    	BestellingDaoImpl bestellingDaoImpl = new BestellingDaoImpl();
+        return bestellingDaoImpl.selectMultiple(klantId);
     }
     
-    public boolean updateBestelling(Bestelling bestelling) {
-        BestellingDAO bestellingDAO = DAOFactory.getDAOFactory().getBestellingDAO();
-        return bestellingDAO.updateBestelling(bestelling);
+    public void updateBestelling(Bestelling bestelling) {
+    	BESTELLINGDAO.update(bestelling);
     }
     
-    public boolean deleteBestelling(int id) {
-        BestellingDAO bestellingDAO = DAOFactory.getDAOFactory().getBestellingDAO();
-        return bestellingDAO.deleteBestelling(id);
+    public void deleteBestelling(Long id) {
+    	BESTELLINGDAO.delete(id);
     }
 }

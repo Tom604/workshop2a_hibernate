@@ -1,8 +1,9 @@
 package nl.workshop2.controller;
 
 import java.util.ArrayList;
-import nl.workshop2.dao.BestelregelDAO;
 import nl.workshop2.dao.DAOFactory;
+import nl.workshop2.dao.GenericDao;
+import nl.workshop2.dao.mysqldao.BestelregelDaoImpl;
 import nl.workshop2.domain.Bestelregel;
 
 /**
@@ -11,33 +12,31 @@ import nl.workshop2.domain.Bestelregel;
  */
 public class BestelregelController {
     
-    public boolean insertBestelregel(Bestelregel bestelregel) {
-        BestelregelDAO bestelregelDAO = DAOFactory.getDAOFactory().getBestelregelDAO();
-        return bestelregelDAO.insertBestelregel(bestelregel);
+	private final GenericDao<Bestelregel> BESTELREGELDAO = DAOFactory.getDAOFactory().getBestelregelDao();
+	
+    public void insertBestelregel(Bestelregel bestelregel) {
+        BestelregelDaoImpl bestelregelDaoImpl = new BestelregelDaoImpl();
+        bestelregelDaoImpl.insert(bestelregel);
     }
     
-    public Bestelregel selectBestelregel(int id) {
-        BestelregelDAO bestelregelDAO = DAOFactory.getDAOFactory().getBestelregelDAO();
-        return bestelregelDAO.selectBestelregel(id);
+    public Bestelregel selectBestelregel(Long id) {
+        return BESTELREGELDAO.select(id);
     }
     
     public ArrayList<Bestelregel> selectBestelregels() {
-        BestelregelDAO bestelregelDAO = DAOFactory.getDAOFactory().getBestelregelDAO();
-        return bestelregelDAO.selectBestelregels();
+        return BESTELREGELDAO.selectMultiple();
     }
     
-    public ArrayList<Bestelregel> selectBestelregels(int bestellingId) {
-        BestelregelDAO bestelregelDAO = DAOFactory.getDAOFactory().getBestelregelDAO();
-        return bestelregelDAO.selectBestelregels(bestellingId);
+    public ArrayList<Bestelregel> selectBestelregels(Long bestellingId) {
+    	BestelregelDaoImpl bestelregelDaoImpl = new BestelregelDaoImpl();
+        return bestelregelDaoImpl.selectMultiple(bestellingId);
     }
     
-    public boolean updateBestelregel(Bestelregel bestelregel) {
-        BestelregelDAO bestelregelDAO = DAOFactory.getDAOFactory().getBestelregelDAO();
-        return bestelregelDAO.updateBestelregel(bestelregel);
+    public void updateBestelregel(Bestelregel bestelregel) {
+        BESTELREGELDAO.update(bestelregel);
     }
     
-    public boolean deleteBestelregel(int id) {
-        BestelregelDAO bestelregelDAO = DAOFactory.getDAOFactory().getBestelregelDAO();
-        return bestelregelDAO.deleteBestelregel(id);
+    public void deleteBestelregel(Long id) {
+        BESTELREGELDAO.delete(id);
     }
 }

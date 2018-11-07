@@ -119,7 +119,7 @@ public class AdresMenuView extends MenuView {
         Adres adres = new Adres();
         
         System.out.println("\nSelecteer adres.\n");
-        int selection = Integer.parseInt(getSelection());
+        Long selection = Long.parseLong(getSelection());
         if (selection == 0) {
         }
         else if (selection < 0 || selection > id) {
@@ -147,7 +147,7 @@ public class AdresMenuView extends MenuView {
         return adressen.size();
     }
     
-    private void printList(int klantId) {
+    private void printList(Long klantId) {
         
         AdresController adresController = new AdresController();
         ArrayList<Adres> adressen = adresController.selectAdressen(klantId);
@@ -218,7 +218,7 @@ public class AdresMenuView extends MenuView {
     private void showDeleteAdresMenu() {
         
         Adres adres = showSelectAdresMenu();
-        int id = adres.getId();
+        Long id = adres.getId();
         
         setViewName("Adres verwijderen");
         printHeader();

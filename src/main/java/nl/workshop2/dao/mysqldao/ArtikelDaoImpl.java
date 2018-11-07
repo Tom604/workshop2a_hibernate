@@ -6,6 +6,10 @@ import nl.workshop2.utility.BPEntityManager;
 
 public class ArtikelDaoImpl extends GenericDaoImpl<Artikel> {
 
+	public ArtikelDaoImpl() {
+		this.entityClass = Artikel.class;
+	}
+	
 	/*
 	 * Hier de methodes implementeren die specifiek zijn voor deze entity en die niet door
 	 * GenericDaoImpl geïmplementeerd worden.

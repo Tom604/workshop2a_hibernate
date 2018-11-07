@@ -1,8 +1,9 @@
 package nl.workshop2.controller;
 
 import java.util.ArrayList;
-import nl.workshop2.dao.AccountDAO;
 import nl.workshop2.dao.DAOFactory;
+import nl.workshop2.dao.GenericDao;
+import nl.workshop2.dao.mysqldao.AccountDaoImpl;
 import nl.workshop2.domain.Account;
 import nl.workshop2.utility.PasswordStorage;
 
@@ -12,37 +13,35 @@ import nl.workshop2.utility.PasswordStorage;
  */
 public class AccountController {
     
-    public boolean insertAccount(Account account) {
-        AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
-        return accountDAO.insertAccount(account);
+	private final GenericDao<Account> ACCOUNTDAO = DAOFactory.getDAOFactory().getAccountDao();
+	
+    public void insertAccount(Account account) {
+        AccountDaoImpl accountDaoImpl = new AccountDaoImpl();
+    	accountDaoImpl.insert(account);
     }
     
-    public Account selectAccount(int id) {
-        AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
-        return accountDAO.selectAccount(id);
+    public Account selectAccount(Long id) {
+        return ACCOUNTDAO.select(id);
     }
     
     public ArrayList<Account> selectAccounts() {
-        AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
-        return accountDAO.selectAccounts();
+        return ACCOUNTDAO.selectMultiple();
     }
     
-    public boolean updateAccount(Account account) {
-        AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
-        return accountDAO.updateAccount(account);
+    public void updateAccount(Account account) {
+        ACCOUNTDAO.update(account);
     }
     
-    public boolean deleteAccount(int id) {
-        AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
-        return accountDAO.deleteAccount(id);
+    public void deleteAccount(Long id) {
+        ACCOUNTDAO.delete(id);
     }
     
     public boolean validatePassword(String wachtwoord) {
         
         boolean validation = false;
         
-        AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
-        Account account = accountDAO.selectAccount(LoginController.loginnaam);
+        AccountDaoImpl accountDaoImpl = new AccountDaoImpl();
+        Account account = accountDaoImpl.select(LoginController.loginnaam);
         if (PasswordStorage.verifyPassword(wachtwoord, account.getWachtwoord())) {
             validation = true;
         }

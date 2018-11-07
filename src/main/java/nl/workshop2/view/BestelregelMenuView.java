@@ -134,7 +134,7 @@ public class BestelregelMenuView extends MenuView {
         return bestelregel;
     }
     
-    private Bestelregel showSelectBestelregelMenu(int bestellingId) {
+    private Bestelregel showSelectBestelregelMenu(Long bestellingId) {
         
         setViewName("Bestelregel zoeken\t");
         printHeader();
@@ -146,7 +146,7 @@ public class BestelregelMenuView extends MenuView {
         Bestelregel bestelregel = new Bestelregel();
         
         System.out.println("\nSelecteer bestelregel.\n");
-        int selection = Integer.parseInt(getSelection());
+        Long selection = Long.parseLong(getSelection());
         if (selection == 0) {
         }
         else if (selection < 0 || selection > id) {
@@ -160,7 +160,7 @@ public class BestelregelMenuView extends MenuView {
         return bestelregel;
     }
     
-    int printList(int bestellingId) {
+    int printList(Long bestellingId) {
         
         BestelregelController bestelregelController = new BestelregelController();
         ArrayList<Bestelregel> bestelregels = bestelregelController.selectBestelregels(bestellingId);
@@ -215,7 +215,7 @@ public class BestelregelMenuView extends MenuView {
     private void showDeleteBestelregelMenu(Bestelling bestelling) {
         
         Bestelregel bestelregel = showSelectBestelregelMenu(bestelling.getId());
-        int id = bestelregel.getId();
+        Long id = bestelregel.getId();
         
         setViewName("Bestelregel verwijderen");
         printHeader();

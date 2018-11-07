@@ -10,6 +10,10 @@ import nl.workshop2.utility.BPEntityManager;
 
 public class BestellingDaoImpl extends GenericDaoImpl<Bestelling> {
 
+	public BestellingDaoImpl() {
+		this.entityClass = Bestelling.class;
+	}
+	
 	/*
 	 * Hier de methodes implementeren die specifiek zijn voor deze entity en die niet door
 	 * GenericDaoImpl geïmplementeerd worden.
@@ -27,7 +31,7 @@ public class BestellingDaoImpl extends GenericDaoImpl<Bestelling> {
 	
 	// Query met een JPQL statement, werkt het zo met b.klant_id? Ik denk het wel.
 	public ArrayList<Bestelling> selectMultiple(Long klantId) {
-		TypedQuery<Bestelling> query = em.createQuery("SELECT b FROM Bestelling b WHERE b.klant_id = :id", entityClass);
+		TypedQuery<Bestelling> query = em.createQuery("SELECT b FROM Bestelling b WHERE b.klant.id = :id", entityClass);
 		return (ArrayList<Bestelling>) query.setParameter("id", klantId).getResultList();
 	}
 }

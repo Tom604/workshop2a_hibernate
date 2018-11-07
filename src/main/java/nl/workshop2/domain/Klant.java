@@ -1,23 +1,35 @@
 package nl.workshop2.domain;
 
-import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Vosjes
  */
+@Entity
 public class Klant {
     
-    private int id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+	
+	@Column(nullable=false)
     private String voornaam;
+	
+	@Column(nullable=false)
     private String achternaam;
+	
     private String tussenvoegsel;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -55,40 +67,46 @@ public class Klant {
                 + achternaam + ", tussenvoegsel=" + tussenvoegsel + '}';
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 23 * hash + this.id;
-        hash = 23 * hash + Objects.hashCode(this.voornaam);
-        hash = 23 * hash + Objects.hashCode(this.achternaam);
-        hash = 23 * hash + Objects.hashCode(this.tussenvoegsel);
-        return hash;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((achternaam == null) ? 0 : achternaam.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((tussenvoegsel == null) ? 0 : tussenvoegsel.hashCode());
+		result = prime * result + ((voornaam == null) ? 0 : voornaam.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Klant other = (Klant) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.voornaam, other.voornaam)) {
-            return false;
-        }
-        if (!Objects.equals(this.achternaam, other.achternaam)) {
-            return false;
-        }
-        if (!Objects.equals(this.tussenvoegsel, other.tussenvoegsel)) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Klant other = (Klant) obj;
+		if (achternaam == null) {
+			if (other.achternaam != null)
+				return false;
+		} else if (!achternaam.equals(other.achternaam))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (tussenvoegsel == null) {
+			if (other.tussenvoegsel != null)
+				return false;
+		} else if (!tussenvoegsel.equals(other.tussenvoegsel))
+			return false;
+		if (voornaam == null) {
+			if (other.voornaam != null)
+				return false;
+		} else if (!voornaam.equals(other.voornaam))
+			return false;
+		return true;
+	}
 }

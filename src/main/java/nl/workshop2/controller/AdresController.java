@@ -1,8 +1,9 @@
 package nl.workshop2.controller;
 
 import java.util.ArrayList;
-import nl.workshop2.dao.AdresDAO;
 import nl.workshop2.dao.DAOFactory;
+import nl.workshop2.dao.GenericDao;
+import nl.workshop2.dao.mysqldao.AdresDaoImpl;
 import nl.workshop2.domain.Adres;
 
 /**
@@ -11,33 +12,31 @@ import nl.workshop2.domain.Adres;
  */
 public class AdresController {
     
-    public boolean insertAdres(Adres adres) {
-        AdresDAO adresDAO = DAOFactory.getDAOFactory().getAdresDAO();
-        return adresDAO.insertAdres(adres);
+	private final GenericDao<Adres> ADRESDAO = DAOFactory.getDAOFactory().getAdresDao();
+	
+    public void insertAdres(Adres adres) {
+    	AdresDaoImpl adresDaoImpl = new AdresDaoImpl();
+    	adresDaoImpl.insert(adres);
     }
     
-    public Adres selectAdres(int id) {
-        AdresDAO adresDAO = DAOFactory.getDAOFactory().getAdresDAO();
-        return adresDAO.selectAdres(id);
+    public Adres selectAdres(Long id) {
+        return ADRESDAO.select(id);
     }
     
     public ArrayList<Adres> selectAdressen() {
-        AdresDAO adresDAO = DAOFactory.getDAOFactory().getAdresDAO();
-        return adresDAO.selectAdressen();
+        return ADRESDAO.selectMultiple();
     }
     
-    public ArrayList<Adres> selectAdressen(int klantId) {
-        AdresDAO adresDAO = DAOFactory.getDAOFactory().getAdresDAO();
-        return adresDAO.selectAdressen(klantId);
+    public ArrayList<Adres> selectAdressen(Long klantId) {
+    	AdresDaoImpl adresDaoImpl = new AdresDaoImpl();
+        return adresDaoImpl.selectMultiple(klantId);
     }
     
-    public boolean updateAdres(Adres adres) {
-        AdresDAO adresDAO = DAOFactory.getDAOFactory().getAdresDAO();
-        return adresDAO.updateAdres(adres);
+    public void updateAdres(Adres adres) {
+    	ADRESDAO.update(adres);
     }
     
-    public boolean deleteAdres(int id) {
-        AdresDAO adresDAO = DAOFactory.getDAOFactory().getAdresDAO();
-        return adresDAO.deleteAdres(id);
+    public void deleteAdres(Long id) {
+    	ADRESDAO.delete(id);
     }
 }

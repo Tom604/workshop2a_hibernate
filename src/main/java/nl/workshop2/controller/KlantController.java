@@ -2,7 +2,8 @@ package nl.workshop2.controller;
 
 import java.util.ArrayList;
 import nl.workshop2.dao.DAOFactory;
-import nl.workshop2.dao.KlantDAO;
+import nl.workshop2.dao.GenericDao;
+import nl.workshop2.dao.mysqldao.KlantDaoImpl;
 import nl.workshop2.domain.Klant;
 
 /**
@@ -11,33 +12,31 @@ import nl.workshop2.domain.Klant;
  */
 public class KlantController {
     
+	private final GenericDao<Klant> KLANTDAO =  DAOFactory.getDAOFactory().getKlantDao();
+	
     public Klant insertKlant(Klant klant) {
-        KlantDAO klantDAO = DAOFactory.getDAOFactory().getKlantDAO();
-        return klantDAO.insertKlant(klant);
+        KlantDaoImpl klantDaoImpl = new KlantDaoImpl();
+        return klantDaoImpl.insert(klant);
     }
     
-    public Klant selectKlant(int id) {
-        KlantDAO klantDAO = DAOFactory.getDAOFactory().getKlantDAO();
-        return klantDAO.selectKlant(id);
+    public Klant selectKlant(Long id) {
+        return KLANTDAO.select(id);
     }
     
     public ArrayList<Klant> selectKlanten() {
-        KlantDAO klantDAO = DAOFactory.getDAOFactory().getKlantDAO();
-        return klantDAO.selectKlanten();
+        return KLANTDAO.selectMultiple();
     }
     
     public ArrayList<Klant> selectKlanten(String achternaam) {
-        KlantDAO klantDAO = DAOFactory.getDAOFactory().getKlantDAO();
-        return klantDAO.selectKlanten(achternaam);
+    	KlantDaoImpl klantDaoImpl = new KlantDaoImpl();
+        return klantDaoImpl.selectMultiple(achternaam);
     }
     
-    public boolean updateKlant(Klant klant) {
-        KlantDAO klantDAO = DAOFactory.getDAOFactory().getKlantDAO();
-        return klantDAO.updateKlant(klant);
+    public void updateKlant(Klant klant) {
+        KLANTDAO.update(klant);
     }
     
-    public boolean deleteKlant(int id) {
-        KlantDAO klantDAO = DAOFactory.getDAOFactory().getKlantDAO();
-        return klantDAO.deleteKlant(id);
+    public void deleteKlant(Long id) {
+        KLANTDAO.delete(id);
     }
 }

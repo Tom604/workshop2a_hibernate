@@ -103,7 +103,7 @@ public class AccountMenuView extends MenuView {
         Account account = new Account();
         
         System.out.println("\nSelecteer account.\n");
-        int selection = Integer.parseInt(getSelection());
+        Long selection = Long.parseLong(getSelection());
         if (selection == 0) {
         }
         else if (selection < 0 || selection > id) {
@@ -179,7 +179,7 @@ public class AccountMenuView extends MenuView {
     private void showDeleteAccountMenu() {
         
         Account account = showSelectAccountMenu();
-        int id = account.getId();
+        Long id = account.getId();
         
         setViewName("Account verwijderen");
         printHeader();

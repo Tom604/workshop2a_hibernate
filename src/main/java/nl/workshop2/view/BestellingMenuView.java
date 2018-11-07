@@ -131,7 +131,7 @@ public class BestellingMenuView extends MenuView {
         System.out.println("\n0. Terug\n");
         
         System.out.println("Selecteer bestelling:\n");
-        int selection = Integer.parseInt(getSelection());
+        Long selection = Long.parseLong(getSelection());
         if (selection == 0) {
         }
         else if (selection < 0 || selection > id) {
@@ -157,7 +157,7 @@ public class BestellingMenuView extends MenuView {
         Bestelling bestelling = new Bestelling();
         
         System.out.println("Selecteer bestelling.\n");
-        int selection = Integer.parseInt(getSelection());
+        Long selection = Long.parseLong(getSelection());
         if (selection == 0) {
         }
         else if (selection < 0 || selection > id) {
@@ -190,7 +190,7 @@ public class BestellingMenuView extends MenuView {
         return bestellingen.size();
     }
     
-    private int printList(int klantId) {
+    private int printList(Long klantId) {
 
         BestellingController bestellingController = new BestellingController();
         ArrayList<Bestelling> bestellingen = bestellingController.selectBestellingen(klantId);
@@ -211,7 +211,7 @@ public class BestellingMenuView extends MenuView {
     private void showDeleteBestellingMenu() {
         
         Bestelling bestelling = showSelectionOptionsMenu();
-        int id = bestelling.getId();
+        Long id = bestelling.getId();
         
         setViewName("Bestelling verwijderen");
         printHeader();

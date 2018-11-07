@@ -10,6 +10,10 @@ import nl.workshop2.utility.BPEntityManager;
 
 public class KlantDaoImpl extends GenericDaoImpl<Klant> {
 
+	public KlantDaoImpl() {
+		this.entityClass = Klant.class;
+	}
+	
 	/*
 	 * Hier de methodes implementeren die specifiek zijn voor deze entity en die niet door
 	 * GenericDaoImpl geïmplementeerd worden.

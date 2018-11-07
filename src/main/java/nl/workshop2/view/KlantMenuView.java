@@ -92,14 +92,14 @@ public class KlantMenuView extends MenuView {
         setViewName("Klant zoeken\t");
         printHeader();
         
-        int id = printList();
+        Long id = printList();
         System.out.println("\n0. Terug");
         
         KlantController klantController = new KlantController();
         Klant klant = new Klant();
         
         System.out.println("\nSelecteer klant.\n");
-        int selection = Integer.parseInt(getSelection());
+        Long selection = Long.parseLong(getSelection());
         if (selection == 0) {
         }
         else if (selection < 0 || selection > id) {
@@ -130,7 +130,7 @@ public class KlantMenuView extends MenuView {
         Klant klant = new Klant();
         
         System.out.println("\nSelecteer klant.\n");
-        int selection = Integer.parseInt(getSelection());
+        Long selection = Long.parseLong(getSelection());
         if (selection == 0) {
         }
         else if (selection < 0 || selection > id) {
@@ -144,13 +144,13 @@ public class KlantMenuView extends MenuView {
         return klant;
     }
     
-    private int printList() {
+    private Long printList() {
 
         KlantController klantController = new KlantController();
         ArrayList<Klant> klanten = klantController.selectKlanten();
         
         System.out.printf("%3s%-16s\n", "", "Naam");
-        int x = 0;
+        Long x = 0L;
         for (Klant e: klanten) {
             System.out.print(e.getId() + ". ");
             printAttributes(e);
@@ -219,7 +219,7 @@ public class KlantMenuView extends MenuView {
     private void showDeleteKlantMenu() {
         
         Klant klant = showSelectKlantMenu();
-        int id = klant.getId();
+        Long id = klant.getId();
         
         setViewName("Klant verwijderen");
         printHeader();

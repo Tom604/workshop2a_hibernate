@@ -1,7 +1,6 @@
 package nl.workshop2.controller;
 
-import nl.workshop2.dao.AccountDAO;
-import nl.workshop2.dao.DAOFactory;
+import nl.workshop2.dao.mysqldao.AccountDaoImpl;
 import nl.workshop2.domain.Account;
 import nl.workshop2.utility.PasswordStorage;
 
@@ -19,8 +18,8 @@ public class LoginController {
         boolean validation = false;
         
         // Verkrijg data van de database via AccountDAO en valideer
-        AccountDAO accountDAO = DAOFactory.getDAOFactory().getAccountDAO();
-        Account account = accountDAO.selectAccount(username);
+        AccountDaoImpl accountDaoImpl = new AccountDaoImpl();
+        Account account = accountDaoImpl.select(username);
         if (account.getUsername() != null && PasswordStorage.verifyPassword(wachtwoord, account.getWachtwoord())) {
             validation = true;
             loginnaam = account.getUsername();
